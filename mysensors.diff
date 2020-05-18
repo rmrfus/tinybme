@@ -1,0 +1,56 @@
+--- ./.pio/libdeps/attiny85/MySensors_ID548/hal/architecture/AVR/MyHwAVR.cpp	2019-12-09 03:37:43.000000000 -0800
++++ ./.pio/libdeps/attiny85/MySensors_ID548/hal/architecture/AVR/MyHwAVR.cpp	2020-05-16 14:54:44.000000000 -0700
+@@ -307,6 +307,7 @@
+ 	return (1125300UL) / ADC;
+ }
+ 
++#ifndef __AVR_ATtiny85__
+ uint16_t hwCPUFrequency(void)
+ {
+ 	cli();
+@@ -344,6 +345,8 @@
+ 	// return frequency in 1/10MHz (accuracy +- 10%)
+ 	return result;
+ }
++#endif
++
+ 
+ int8_t hwCPUTemperature(void)
+ {
+--- ./.pio/libdeps/attiny85/MySensors_ID548/hal/transport/RF24/driver/RF24.cpp	2019-12-09 03:37:43.000000000 -0800
++++ ./.pio/libdeps/attiny85/MySensors_ID548/hal/transport/RF24/driver/RF24.cpp	2020-05-16 17:05:05.000000000 -0700
+@@ -46,6 +46,14 @@
+ {
+ #if defined(__linux__)
+ 	(void)level;
++#elif MY_RF24_CS_PIN == NOT_A_PIN
++    if(level) {
++        PORTB |= (1<<PINB2);
++        delayMicroseconds(64);
++    } else {
++        PORTB &= ~(1<<PINB2);
++        delayMicroseconds(8);
++    }
+ #else
+ 	hwDigitalWrite(MY_RF24_CS_PIN, level);
+ #endif
+@@ -252,6 +260,9 @@
+ LOCAL void RF24_startListening(void)
+ {
+ 	RF24_DEBUG(PSTR("RF24:STL\n"));	// start listening
++    #if MY_RF24_CE_PIN == NOT_A_PIN
++	RF24_sleep();
++    #endif
+ 	// toggle PRX
+ 	RF24_setRFConfiguration(RF24_CONFIGURATION | _BV(RF24_PWR_UP) | _BV(RF24_PRIM_RX) );
+ 	// all RX pipe addresses must be unique, therefore skip if node ID is RF24_BROADCAST_ADDRESS
+@@ -265,6 +276,9 @@
+ LOCAL void RF24_stopListening(void)
+ {
+ 	RF24_DEBUG(PSTR("RF24:SPL\n"));	// stop listening
++    #if MY_RF24_CE_PIN == NOT_A_PIN
++	RF24_sleep();
++    #endif
+ 	RF24_ce(LOW);
+ 	// timing
+ 	delayMicroseconds(130);
