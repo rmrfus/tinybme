@@ -32,6 +32,7 @@ Flash: [==========]  98.9% (used 8100 bytes from 8192 bytes)
 - Make sure you have your Arduino ISP setup ready. [Here is good instructions how to make it work with Pro Micro](https://www.instructables.com/id/Mini-Breadboard-Pro-Micro-ISP-for-DIP8-ATTiny-Seri/)
 - Fix serial port in `platformio.ini`
 - Fix `MY_NODE_ID` and `MY_RF24_CHANNEL` in `src/main.cpp`
+- [Fix BME280 I2C address if needed](include/TinyBME280.h#L16)
 - `pio run --target upload`
 
 
