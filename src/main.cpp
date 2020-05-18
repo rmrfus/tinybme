@@ -21,11 +21,12 @@ SoftWire sWire = SoftWire();
 #define MY_PASSIVE_NODE
 #define MY_DISABLE_REMOTE_RESET
 
-#define MY_NODE_ID 99
 #define MY_RADIO_RF24
-#define MY_RF24_CHANNEL 0x70
 #define MY_RF24_CE_PIN      NOT_A_PIN
 #define MY_RF24_CS_PIN      NOT_A_PIN
+
+#define MY_NODE_ID 99
+#define MY_RF24_CHANNEL 0x70
 
 #include <MySensors.h>
 
