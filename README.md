@@ -2,17 +2,17 @@
 
 **Work in progress... Proceed with caution.**
 
-Right now (mid-2020) there is no any info how to build [MySensors](http://mysensors.org/) node on ATTiny85 with NRF24l01 and BME280 (4pin I2C version). This projects proves it is possible.
+Right now (mid-2020) there isn't any information on how to build [MySensors](http://mysensors.org/) node on ATTiny85 with NRF24l01 and BME280 (4pin I2C version). This projects proves that it's possible.
 
-I've just started to work with ATTiny85 platform and decided to find if it is possible to build basic MySensors node with temperature sensor.
+I've just started to work with the ATTiny85 platform and decided to find if it's possible to build basic MySensors node with a temperature sensor.
 
-NRF24L01 requires 5 pins for work. Considering that ATTiny85 has 5 usable pins in total this leaves no space to connect anything else. By connecting CE pin of NRF24L01 directly to VCC and multiplexing CS pin via SCK you can make it work with only 3 pins. Here are the projects I used: [1](http://nerdralph.blogspot.com/2014/01/nrf24l01-control-with-3-attiny85-pins.html) [2](https://www.instructables.com/id/NRF24L01-With-ATtiny85-3-Pins/)
+NRF24L01 requires 5 pins for it to work. Considering that the ATTiny85 has 5 usable pins in total this leaves no space to connect anything else. By connecting the CE pin of NRF24L01 directly to VCC and multiplexing CS pin via SCK you can make it work with only 3 pins. Here are the projects I used: [1](http://nerdralph.blogspot.com/2014/01/nrf24l01-control-with-3-attiny85-pins.html) [2](https://www.instructables.com/id/NRF24L01-With-ATtiny85-3-Pins/)
 
-This leaves us pins 3 and 4 to connect sensors. If you have BME280 that works with SPI it shouldn't be a problem and this [was done before](https://forum.mysensors.org/topic/10866/a-tiny-bme-node-bme280-on-attiny85). However 4-pin version of BME280 sensors I had works only over I2C.  Unfortunately ATTiny85 shares SPI and I2C pins. So I had to use SoftWire to move I2C functionality to pins 3 and 4.
+This leaves us with pins 3 and 4 to connect sensors. If you have a BME280 that works with SPI it shouldn't be a problem and this [was done before](https://forum.mysensors.org/topic/10866/a-tiny-bme-node-bme280-on-attiny85). However the  4-pin version of BME280 sensors I had only works over I2C.  Unfortunately ATTiny85 shares SPI and I2C pins. So I had to use SoftWire to move I2C functionality to pins 3 and 4.
 
 The smallest BME280/I2C library [TinyBME280](https://github.com/technoblogy/tiny-bme280) adapted for ATTiny85 doesn't work with SoftWire out of box. To simplify adoption process and save some space I converted it to .h file and included into this project.
 
-Another challenge is Flash. Right now code is 92 bytes under 8K. Which leaves no space even to do proper conversion of BME280 output. This should be done in your controller, for example HomeAssistant.
+Another challenge is Flash. Right now the code is 92 bytes under 8K. Which leaves no space even to do proper conversion of BME280 output. This should be done in your controller, for example HomeAssistant.
 ```
 RAM:   [=======   ]  70.7% (used 362 bytes from 512 bytes)
 Flash: [==========]  98.9% (used 8100 bytes from 8192 bytes)
@@ -62,6 +62,3 @@ This project is just a compilation of work that was done before. Here is list of
 * http://nerdralph.blogspot.com/2014/01/nrf24l01-control-with-3-attiny85-pins.html
 * https://www.instructables.com/id/NRF24L01-With-ATtiny85-3-Pins/
 * https://github.com/technoblogy/tiny-bme280
-
-
-test change
