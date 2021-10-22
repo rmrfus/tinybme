@@ -2,7 +2,7 @@
 
 **Work in progress... Proceed with caution.**
 
-Right now (mid-2020) there isn't any information on how to build [MySensors](http://mysensors.org/) node on ATTiny85 with NRF24l01 and BME280 (4pin I2C version). This projects proves that it's possible.
+Right now (mid-2020) there isn't any information on how to build [MySensors](http://mysensors.org/) node on ATTiny85 with NRF24l01 and BME280 (4pin I2C version). This project proves that it's possible.
 
 I've just started to work with the ATTiny85 platform and decided to find if it's possible to build basic MySensors node with a temperature sensor.
 
